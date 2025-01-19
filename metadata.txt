@@ -3,7 +3,7 @@ name=rosreestr-nspd-search-qgis-plugin
 description=Rosreestr NSPD search qgis plugin
 about=Search to Public Cadastral Map of Rosreestr NSPD - https://nspd.gov.ru/map
       Поиск по Публичной кадастровой карте НСПД
-version=0.1
+version=2.0
 qgisMinimumVersion=3.0
 author=matmatamat
 email=matmatamail@gmail.com
