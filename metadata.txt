@@ -1,5 +1,5 @@
 [general]
-name=rosreestr-nspd-search-qgis-plugin
+name=rosreestr-search-qgis-plugin
 description=Rosreestr NSPD search qgis plugin
 about=Search to Public Cadastral Map of Rosreestr NSPD - https://nspd.gov.ru/map
       Поиск по Публичной кадастровой карте НСПД
