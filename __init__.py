@@ -19,7 +19,7 @@ class PkkSearch:
         self.first_start = None
        
     def initGui(self):
-        self.action = (QAction(QIcon(os.path.dirname(__file__) + "/icon.svg"),
+        self.action = (QAction(QIcon(os.path.dirname(__file__) + "/icon.png"),
             'Поиск по Публичной кадастровой карте',
             self.iface.mainWindow()))
         self.action.triggered.connect(self.run)
