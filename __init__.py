@@ -11,6 +11,7 @@ from .get_user_parameters import GetParameters
 
 def classFactory(iface):
     return PkkSearch(iface)
+    self.first_start = None
 
 class PkkSearch:
 
@@ -22,14 +23,17 @@ class PkkSearch:
             'Поиск по Публичной кадастровой карте',
             self.iface.mainWindow()))
         self.action.triggered.connect(self.run)
-        self.iface.addToolBarIcon(self.action)        
+        self.iface.addToolBarIcon(self.action)
+        self.first_start = True
 
     def unload(self):
         self.iface.removeToolBarIcon(self.action)
         del self.action
 
     def run(self):
-        self.buttons = GetParameters()
+        if self.first_start == True:
+            self.first_start = False
+            self.buttons = GetParameters()
 
         self.buttons.show()
         self.result = self.buttons.exec_()
