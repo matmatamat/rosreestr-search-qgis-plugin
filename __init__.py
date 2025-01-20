@@ -16,7 +16,6 @@ class PkkSearch:
 
     def __init__(self, iface):
         self.iface = iface
-        self.first_start = None
        
     def initGui(self):
         self.action = (QAction(QIcon(os.path.dirname(__file__) + "/icon.png"),
@@ -24,16 +23,13 @@ class PkkSearch:
             self.iface.mainWindow()))
         self.action.triggered.connect(self.run)
         self.iface.addToolBarIcon(self.action)        
-        self.first_start = True
 
     def unload(self):
         self.iface.removeToolBarIcon(self.action)
         del self.action
 
     def run(self):
-        if self.first_start == True:
-            self.first_start = False
-            self.buttons = GetParameters()
+        self.buttons = GetParameters()
 
         self.buttons.show()
         self.result = self.buttons.exec_()
