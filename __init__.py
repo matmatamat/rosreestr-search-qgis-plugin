@@ -19,11 +19,12 @@ class PkkSearch:
         self.iface = iface
        
     def initGui(self):
-        self.action = (QAction(QIcon(os.path.dirname(__file__) + "/icon.png"),
-            'Поиск по Публичной кадастровой карте',
+        self.action = (QAction(QIcon(os.path.dirname(__file__) + '/icon.png'),
+            'Поиск по Публичной кадастровой карте НСПД',
             self.iface.mainWindow()))
         self.action.triggered.connect(self.run)
         self.iface.addToolBarIcon(self.action)
+        self.iface.addPluginToMenu("&Поиск по ПКК НСПД", self.action)
         self.first_start = True
 
     def unload(self):
