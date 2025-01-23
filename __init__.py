@@ -28,6 +28,7 @@ class PkkSearch:
         self.first_start = True
 
     def unload(self):
+        self.iface.removePluginMenu('&Поиск по ПКК НСПД', self.action)
         self.iface.removeToolBarIcon(self.action)
         del self.action
 
