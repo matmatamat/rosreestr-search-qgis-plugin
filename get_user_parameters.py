@@ -71,7 +71,9 @@ class GetParameters(QtWidgets.QDialog):
             QMessageBox.warning(None, "Warning", "Не указан номер объекта")
         elif re.compile(r'(\d{2}\:\d{2}\:\d{1,7}\:\d+)+$').match(self.cnum) and self.type_obj == ['&thematicSearchId=1']:
             nspd_pkk(self.cnum, self.type_obj)
+            self.close()
         elif re.compile(r'(\d{2}\:\d{2}\-\d+\.\d+)+$').match(self.cnum) and self.type_obj == ['&thematicSearchId=5']:
-            nspd_pkk(self.cnum, self.type_obj)            
+            nspd_pkk(self.cnum, self.type_obj)
+            self.close()
         else:
             QMessageBox.warning(None, "Warning", "Кадастровый номер не соответствует выбранному типу\nили содержит ошибку!")
