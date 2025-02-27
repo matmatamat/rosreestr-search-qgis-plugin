@@ -1,0 +1,19 @@
+[general]
+name=rosreestr-search-qgis-plugin
+description=Rosreestr NSPD search qgis plugin
+about=Search to Public Cadastral Map of Rosreestr NSPD - https://nspd.gov.ru/map
+      Loading layers of the NSD
+      Поиск по Публичной кадастровой карте НСПД
+      Загрузка слоёв НСПД
+version=2.1
+qgisMinimumVersion=3.0
+author=matmatamat
+email=matmatamail@gmail.com
+
+experimental=False
+
+icon=icon.png
+tags=web
+homepage=https://github.com/matmatamat/rosreestr-search-qgis-plugin
+tracker=https://github.com/matmatamat/rosreestr-search-qgis-plugin/issues
+repository=https://github.com/matmatamat/rosreestr-search-qgis-plugin
