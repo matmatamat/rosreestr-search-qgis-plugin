@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 # Rosreestr-nspd-search-qgis-plugin
 # Licensed under the terms of GNU GPL 2
-
+import os
+from PyQt5.QtWidgets import QMessageBox, QCheckBox
 from qgis.core import QgsRasterLayer, QgsProject
 
 # Thanks to Slinger (https://geodesist.ru/members/slinger.4082/)
