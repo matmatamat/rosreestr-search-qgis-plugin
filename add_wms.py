@@ -5,6 +5,24 @@ import os
 from PyQt5.QtWidgets import QMessageBox, QCheckBox
 from qgis.core import QgsRasterLayer, QgsProject
 
+def user_confirm():
+    pth = os.path.abspath(os.path.dirname(__file__))  + '/cert_true'
+    if os.path.exists(pth):
+        print("Файл существует")
+    else:
+        def cb_active(on):
+            file = open(pth, 'a')
+            file.close()
+            print('Файл создан') 
+        mb = QMessageBox()
+        mb.setWindowTitle('https://nspd.gov.ru/map') 
+        mb.setText('Для отображения выбранного слоя\nна компьютере должны быть установлены сертификаты Минцифры\n\nУстановить: https://www.gosuslugi.ru/crt\n\n') 
+        cb = QCheckBox('Сертификаты установлены, не показывать предупреждение')
+        cb.toggled.connect(cb_active)
+        mb.setCheckBox(cb)            
+        mb.show()
+        mb.result = mb.exec_()
+
 # Thanks to Slinger (https://geodesist.ru/members/slinger.4082/)
 # https://geodesist.ru/threads/rosreestr-otkryl-portal-nspd.94512/page-6#post-1128441
 nspd_cadastre = {
