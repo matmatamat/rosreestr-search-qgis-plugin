@@ -14,4 +14,4 @@ Loading layers of the NSD
 
 <https://nspd.gov.ru/map>
 
-<div style="text-align:center"><img src="scrn.png" alt="rosreestr-nspd-search-qgis-plugin"></div>
+<div style="text-align:center"><img src="scrn.jpg" alt="rosreestr-nspd-search-qgis-plugin"></div>
