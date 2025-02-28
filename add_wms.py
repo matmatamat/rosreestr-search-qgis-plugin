@@ -258,6 +258,9 @@ nspd_maps = [
 def add_nspd_maps(nspd_maps):
     maphead = 'http-header:referer=https://nspd.gov.ru/map?baseLayerId%3D'
 
+    if nspd_maps[0] != '':
+        user_confirm()    
+
     # Цифровая объектовая схема (справочный слой)
     if nspd_maps[0] == 'Цифровая объектовая схема (справочный слой)':
         layer_path = QgsRasterLayer(maphead + '235&referer=https://nspd.gov.ru/map?baseLayerId%3D235&type=xyz&url=https://nspd.gov.ru/api/aeggis/v2/235/wmts/%7Bz%7D/%7Bx%7D/%7By%7D.png&zmax=18&zmin=0', 'Цифровая объектовая схема (справочный слой)', 'wms')
