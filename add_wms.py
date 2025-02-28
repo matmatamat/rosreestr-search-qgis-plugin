@@ -78,7 +78,10 @@ nspd_cadastre = {
 
 def add_nspd_cadastre(cad_maps):
     head = 'contextualWMSLegend=0&crs=EPSG:3857&dpiMode=7&featureCount=10&format=image/png&http-header:referer=https://nspd.gov.ru/map?active_layers%3D'
-
+    
+    if cad_maps[0] != '':
+        user_confirm()
+    
     # Единицы кадастрового деления
     if cad_maps[0] == 'Кадастровые округа':
         layer_path = QgsRasterLayer(head + '遑&layers=36945&styles&url=https://nspd.gov.ru/api/aeggis/v3/36945/wms', "Кадастровые округа", "wms")
