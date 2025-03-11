@@ -9,7 +9,7 @@ QGIS Rosreestr NSPD search plugin
 
 Search to Public Cadastral Map of Rosreestr NSPD
 
-Loading layers of the NSD
+Loading layers of the NSPD
 
 
 <https://nspd.gov.ru/map>
