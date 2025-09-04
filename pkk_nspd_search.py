@@ -74,7 +74,23 @@ def nspd_pkk(cnum, type_obj, ml):
             pth = os.path.abspath(__file__) + 'pkk_poly' + '.geojson'
 
             url = 'https://nspd.gov.ru/api/geoportal/v2/search/geoportal?query=' + cnum + type_obj
-            r = requests.get(url, verify=False)
+
+            headers = {
+                "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/119.0",
+                "Accept": "application/json, text/plain, */*",
+                "Accept-Language": "ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7",
+                "Accept-Encoding": "gzip, deflate, br",
+                "Connection": "keep-alive",
+                "Referer": "https://nspd.gov.ru/",
+                "Sec-Fetch-Dest": "empty",
+                "Sec-Fetch-Mode": "cors",
+                "Sec-Fetch-Site": "same-origin",
+                "Pragma": "no-cache",
+                "Cache-Control": "no-cache",
+                "TE": "trailers"
+            }
+
+            r = requests.get(url, headers=headers, timeout=15, verify=False)
             cont = r.content
             resp = html.unescape(cont.decode("utf-8"))
             q = json.loads(resp)
@@ -108,3 +124,4 @@ def nspd_pkk(cnum, type_obj, ml):
             QMessageBox.information(iface.mainWindow(),
             str(cou),
                 'Превышено количество запросов')
+
