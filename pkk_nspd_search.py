@@ -19,6 +19,7 @@ from qgis.core import (
     QgsProject
 )
 import processing
+import time
 
 def add_layer(type_obj, cnum, lr):
     QgsProject.instance().addMapLayers([lr])
@@ -152,6 +153,7 @@ def nspd_pkk(cnum, type_obj, ml):
             QMessageBox.information(iface.mainWindow(),
             str(cou),
                 'Превышено количество запросов')
+
 
 
 
