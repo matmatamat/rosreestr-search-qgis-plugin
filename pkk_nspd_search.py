@@ -73,19 +73,55 @@ def nspd_pkk(cnum, type_obj, ml):
             ###
             pth = os.path.abspath(__file__) + 'pkk_poly' + '.geojson'
 
-            url = 'https://nspd.gov.ru/api/geoportal/v2/search/geoportal?query=' + cnum + type_obj
-
+            ### Артём, спасибо за помощь в парсинге json !
+            session = requests.Session()
+           
             headers = {
-                "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/119.0",
-                "Accept": "application/json, text/plain, */*",
-                "Accept-Language": "ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7",
-                "Referer": "https://nspd.gov.ru/"
+                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36',
+                'Accept': '*/*',
+                'Accept-Language': 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7',
+                'Referer': 'https://nspd.gov.ru/map?thematic=PKK&zoom=18.565066407456115&coordinate_x=6223932.21047097&coordinate_y=7962267.622666277&baseLayerId=235&theme_id=1&is_copy_url=true',
+                'Origin': 'https://nspd.gov.ru',
+                'x-kl-ksospc-ajax-request': 'Ajax_Request',
+                'priority': 'u=1, i',
+                'sec-ch-ua': '"Not:A-Brand";v="99", "Google Chrome";v="145", "Chromium";v="145"',
+                'sec-ch-ua-mobile': '?0',
+                'sec-ch-ua-platform': '"Windows"',
+                'sec-fetch-dest': 'empty',
+                'sec-fetch-mode': 'cors',
+                'sec-fetch-site': 'same-origin',
             }
-
-            r = requests.get(url, headers=headers, timeout=15, verify=False)
-            cont = r.content
+           
+            params = {
+                'query': cnum,
+                'thematicSearchId': '1'
+            }
+           
+            # Загружаем главную страницу для получения cookies
+            main_response = session.get(
+                'https://nspd.gov.ru/map',
+                headers=headers,
+                timeout=10,
+                verify=False
+            )
+           
+            time.sleep(1)
+           
+            # Отправляем поисковый запрос
+            response = session.get(
+                'https://nspd.gov.ru/api/geoportal/v2/search/geoportal',
+                params=params,
+                headers=headers,
+                timeout=10,
+                verify=False
+            )
+           
+            session.close()
+           
+            cont = response.content
             resp = html.unescape(cont.decode("utf-8"))
             q = json.loads(resp)
+            ###
             
             if list(q.keys())[0] == 'data':
                 
@@ -116,5 +152,6 @@ def nspd_pkk(cnum, type_obj, ml):
             QMessageBox.information(iface.mainWindow(),
             str(cou),
                 'Превышено количество запросов')
+
 
 
