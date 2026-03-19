@@ -10,6 +10,7 @@ import ssl
 import urllib.request
 import html
 import json
+import random
 from PyQt5.QtWidgets import (
     QMessageBox
 )   
@@ -22,6 +23,7 @@ from qgis.core import (
 import processing
 import warnings
 from requests.packages.urllib3.exceptions import InsecureRequestWarning
+from .get_random_user_agent import get_random_user_agent
 
 # Подавляем предупреждения о небезопасных HTTPS запросах
 warnings.simplefilter('ignore', InsecureRequestWarning)
@@ -79,16 +81,21 @@ def nspd_pkk(cnum, type_obj, ml):
             pth = os.path.abspath(__file__) + 'pkk_poly' + '.geojson'
 
             ### Артём, спасибо за помощь в парсинге json!
-            url = f"https://nspd.gov.ru/api/geoportal/v2/search/geoportal?&query={cnum}&{type_obj}"
+            url = f'https://nspd.gov.ru/api/geoportal/v2/search/geoportal?&query={cnum}&{type_obj}'
+            
+            zoom = random.uniform(4, 20)
+            x = random.uniform(8831457, 13982833)
+            y= random.uniform(16220338, 11197632)
 
             session = requests.Session()
 
             headers = {
-            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/119.0',
+            'User-Agent': get_random_user_agent(),
             'Accept': 'application/json, text/plain, */*',
             'Accept-Language': 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7',
             'Referer': 'https://nspd.gov.ru/map?thematic=PKK',
             'Origin': 'https://nspd.gov.ru',
+            f'Referer':'https://nspd.gov.ru/map?thematic=PKK&baseLayerId=235&theme_id=1&zoom={zoom}&coordinate_x={x}&coordinate_y={y}&is_copy_url=true'
             }
 
             response = session.get(
@@ -98,7 +105,7 @@ def nspd_pkk(cnum, type_obj, ml):
                 verify=False
             )
 
-            time.sleep(2)
+            time.sleep(1)
 
             cont = response.content
             resp = html.unescape(cont.decode("utf-8"))
