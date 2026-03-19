@@ -79,7 +79,7 @@ def nspd_pkk(cnum, type_obj, ml):
             pth = os.path.abspath(__file__) + 'pkk_poly' + '.geojson'
 
             ### Артём, спасибо за помощь в парсинге json!
-            url = f"https://nspd.gov.ru/api/geoportal/v2/search/geoportal?{type_obj}&query={cnum}"
+            url = f"https://nspd.gov.ru/api/geoportal/v2/search/geoportal?&query={cnum}&{type_obj}"
 
             session = requests.Session()
 
