@@ -5,8 +5,8 @@
 #   https://github.com/wonder-sk/qgis-minimal-plugin
 
 import os
-from PyQt5.QtWidgets import QAction
 from qgis.PyQt.QtGui import QIcon
+from .compat import Compat
 from .get_user_parameters import GetParameters
 from .nspd_certificates import install_nspd_ca_hook, remove_nspd_ca_hook
 
@@ -22,7 +22,7 @@ class PkkSearch:
        
     def initGui(self):
         self.nspd_ca_processor_id = install_nspd_ca_hook()
-        self.action = (QAction(QIcon(os.path.dirname(__file__) + '/icon.png'),
+        self.action = (Compat.QAction(QIcon(os.path.dirname(__file__) + '/icon.png'),
             'Поиск по Публичной кадастровой карте НСПД',
             self.iface.mainWindow()))
         self.action.triggered.connect(self.run)
@@ -43,7 +43,7 @@ class PkkSearch:
             self.buttons = GetParameters()
 
         self.buttons.show()
-        self.result = self.buttons.exec_()
+        self.result = Compat.exec_dialog(self.buttons)
         
         if self.result:
             pass

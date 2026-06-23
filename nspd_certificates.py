@@ -4,8 +4,9 @@
 
 import os
 
-from PyQt5.QtNetwork import QSsl, QSslCertificate
+from qgis.PyQt.QtNetwork import QSslCertificate
 from qgis.core import QgsNetworkAccessManager
+from .compat import Compat
 
 NSPD_HOST = 'nspd.gov.ru'
 CERTS_DIR = os.path.join(os.path.abspath(os.path.dirname(__file__)), 'certs')
@@ -23,7 +24,7 @@ def load_nspd_ca_certs():
     global _nspd_ca_certs
 
     if _nspd_ca_certs is None:
-        _nspd_ca_certs = QSslCertificate.fromPath(NSPD_CA_BUNDLE, QSsl.Pem)
+        _nspd_ca_certs = QSslCertificate.fromPath(NSPD_CA_BUNDLE, Compat.pem_encoding_format())
 
     return _nspd_ca_certs
 

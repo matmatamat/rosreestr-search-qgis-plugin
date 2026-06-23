@@ -4,11 +4,11 @@
 
 from qgis.core import QgsDataSourceUri
 from qgis.PyQt import QtWidgets
-from PyQt5.QtWidgets import (QWidget, QVBoxLayout, QRadioButton, QCheckBox,
+from qgis.PyQt.QtWidgets import (QWidget, QVBoxLayout, QRadioButton, QCheckBox,
                          QPushButton, QLineEdit, QMessageBox, QComboBox)
-from PyQt5.QtGui import QPalette, QColor
-from PyQt5.QtCore import Qt
+from qgis.PyQt.QtGui import QPalette, QColor
 import re
+from .compat import Compat
 from .pkk_nspd_search import nspd_pkk
 
 from .add_wms import nspd_cadastre, add_nspd_cadastre, nspd_maps, add_nspd_maps, other_maps, add_other_maps
@@ -49,7 +49,7 @@ class GetParameters(QtWidgets.QDialog):
         
         self.font.setPointSize(10)
         self.palette = QPalette()
-        self.palette.setColor(QPalette.Foreground, QColor("grey"))
+        self.palette.setColor(Compat.palette_foreground_role(), QColor("grey"))
 
         self.label_1.setPalette( self.palette)
         self.label_2.setPalette( self.palette)
@@ -69,7 +69,7 @@ class GetParameters(QtWidgets.QDialog):
         self.rb5 = QRadioButton('Территориальные зоны')
 
         self.cb1 = QCheckBox('Добавить, как временный слой')
-        self.cb1.setLayoutDirection(Qt.RightToLeft) 
+        self.cb1.setLayoutDirection(Compat.right_to_left_layout_direction())
         
         self.button =  QPushButton("Найти участок")
         

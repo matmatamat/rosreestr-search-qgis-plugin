@@ -9,10 +9,9 @@ import time
 import html
 import json
 import random
-from PyQt5.QtWidgets import (
+from qgis.PyQt.QtWidgets import (
     QMessageBox
-)   
-from qgis.PyQt.QtGui import QIcon
+)
 from qgis.utils import iface
 from qgis.core import (
     QgsVectorLayer,
