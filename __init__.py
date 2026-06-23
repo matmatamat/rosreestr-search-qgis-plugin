@@ -8,6 +8,7 @@ import os
 from PyQt5.QtWidgets import QAction
 from qgis.PyQt.QtGui import QIcon
 from .get_user_parameters import GetParameters
+from .nspd_certificates import install_nspd_ca_hook, remove_nspd_ca_hook
 
 def classFactory(iface):
     return PkkSearch(iface)
@@ -17,8 +18,10 @@ class PkkSearch:
 
     def __init__(self, iface):
         self.iface = iface
+        self.nspd_ca_processor_id = None
        
     def initGui(self):
+        self.nspd_ca_processor_id = install_nspd_ca_hook()
         self.action = (QAction(QIcon(os.path.dirname(__file__) + '/icon.png'),
             'Поиск по Публичной кадастровой карте НСПД',
             self.iface.mainWindow()))
@@ -28,6 +31,8 @@ class PkkSearch:
         self.first_start = True
 
     def unload(self):
+        remove_nspd_ca_hook(self.nspd_ca_processor_id)
+        self.nspd_ca_processor_id = None
         self.iface.removePluginMenu('&Поиск по ПКК НСПД', self.action)
         self.iface.removeToolBarIcon(self.action)
         del self.action

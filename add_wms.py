@@ -1,27 +1,7 @@
 # -*- coding: utf-8 -*-
 # Rosreestr-nspd-search-qgis-plugin
 # Licensed under the terms of GNU GPL 2
-import os
-from PyQt5.QtWidgets import QMessageBox, QCheckBox
 from qgis.core import QgsRasterLayer, QgsProject
-
-def user_confirm():
-    pth = os.path.abspath(os.path.dirname(__file__))  + '/cert_true'
-    if os.path.exists(pth):
-        print("Файл существует")
-    else:
-        def cb_active(on):
-            file = open(pth, 'a')
-            file.close()
-            print('Файл создан') 
-        mb = QMessageBox()
-        mb.setWindowTitle('https://nspd.gov.ru/map') 
-        mb.setText('Для отображения выбранного слоя\nна компьютере должны быть установлены сертификаты Минцифры\n\nУстановить: https://www.gosuslugi.ru/crt\n\n') 
-        cb = QCheckBox('Сертификаты установлены, не показывать предупреждение')
-        cb.toggled.connect(cb_active)
-        mb.setCheckBox(cb)            
-        mb.show()
-        mb.result = mb.exec_()
 
 # Thanks to Slinger (https://geodesist.ru/members/slinger.4082/)
 # https://geodesist.ru/threads/rosreestr-otkryl-portal-nspd.94512/page-6#post-1128441
@@ -78,10 +58,7 @@ nspd_cadastre = {
 
 def add_nspd_cadastre(cad_maps):
     head = 'contextualWMSLegend=0&crs=EPSG:3857&dpiMode=7&featureCount=10&format=image/png&http-header:referer=https://nspd.gov.ru/map?active_layers%3D'
-    
-    if cad_maps[0] != '':
-        user_confirm()
-    
+
     # Единицы кадастрового деления
     if cad_maps[0] == 'Кадастровые округа':
         layer_path = QgsRasterLayer(head + '遑&layers=36945&styles&url=https://nspd.gov.ru/api/aeggis/v3/36945/wms', "Кадастровые округа", "wms")
@@ -257,9 +234,6 @@ nspd_maps = [
 
 def add_nspd_maps(nspd_maps):
     maphead = 'http-header:referer=https://nspd.gov.ru/map?baseLayerId%3D'
-
-    if nspd_maps[0] != '':
-        user_confirm()    
 
     # Цифровая объектовая схема (справочный слой)
     if nspd_maps[0] == 'Цифровая объектовая схема (справочный слой)':
