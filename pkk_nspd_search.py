@@ -19,7 +19,7 @@ from qgis.core import (
 )
 import processing
 from .get_random_user_agent import get_random_user_agent
-from .nspd_certificates import NSPD_CA_BUNDLE
+from .nspd_requests import NSPD_CA_BUNDLE
 
 def add_layer(type_obj, cnum, lr):
     QgsProject.instance().addMapLayers([lr])

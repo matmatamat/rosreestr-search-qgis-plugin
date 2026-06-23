@@ -4,7 +4,7 @@
 
 from qgis.PyQt.QtCore import Qt
 from qgis.PyQt.QtGui import QPalette
-from qgis.PyQt.QtNetwork import QSsl
+from qgis.PyQt.QtNetwork import QSsl, QNetworkRequest
 
 try:
     from qgis.PyQt.QtGui import QAction as QgisAction
@@ -33,6 +33,11 @@ class Compat:
             return QSsl.EncodingFormat.Pem
 
         return QSsl.Pem
+
+    @staticmethod
+    def http2_allowed_attribute():
+        attribute_enum = getattr(QNetworkRequest, 'Attribute', QNetworkRequest)
+        return attribute_enum.Http2AllowedAttribute
 
     @staticmethod
     def right_to_left_layout_direction():
