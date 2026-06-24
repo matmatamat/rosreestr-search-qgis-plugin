@@ -6,27 +6,20 @@ import os
 import re
 import requests
 import time
-import ssl
-import urllib.request
 import html
 import json
 import random
-from PyQt5.QtWidgets import (
+from qgis.PyQt.QtWidgets import (
     QMessageBox
-)   
-from qgis.PyQt.QtGui import QIcon
+)
 from qgis.utils import iface
 from qgis.core import (
     QgsVectorLayer,
     QgsProject
 )
 import processing
-import warnings
-from requests.packages.urllib3.exceptions import InsecureRequestWarning
 from .get_random_user_agent import get_random_user_agent
-
-# Подавляем предупреждения о небезопасных HTTPS запросах
-warnings.simplefilter('ignore', InsecureRequestWarning)
+from .nspd_requests import NSPD_CA_BUNDLE
 
 def add_layer(type_obj, cnum, lr):
     QgsProject.instance().addMapLayers([lr])
@@ -102,7 +95,7 @@ def nspd_pkk(cnum, type_obj, ml):
                 url,
                 headers=headers,
                 timeout=15,
-                verify=False
+                verify=NSPD_CA_BUNDLE
             )
 
             time.sleep(1)

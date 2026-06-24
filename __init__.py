@@ -5,9 +5,10 @@
 #   https://github.com/wonder-sk/qgis-minimal-plugin
 
 import os
-from PyQt5.QtWidgets import QAction
 from qgis.PyQt.QtGui import QIcon
+from .compat import Compat
 from .get_user_parameters import GetParameters
+from .nspd_requests import install_nspd_request_hook, remove_nspd_request_hook
 
 def classFactory(iface):
     return PkkSearch(iface)
@@ -17,9 +18,11 @@ class PkkSearch:
 
     def __init__(self, iface):
         self.iface = iface
+        self.nspd_request_processor_id = None
        
     def initGui(self):
-        self.action = (QAction(QIcon(os.path.dirname(__file__) + '/icon.png'),
+        self.nspd_request_processor_id = install_nspd_request_hook()
+        self.action = (Compat.QAction(QIcon(os.path.dirname(__file__) + '/icon.png'),
             'Поиск по Публичной кадастровой карте НСПД',
             self.iface.mainWindow()))
         self.action.triggered.connect(self.run)
@@ -28,6 +31,8 @@ class PkkSearch:
         self.first_start = True
 
     def unload(self):
+        remove_nspd_request_hook(self.nspd_request_processor_id)
+        self.nspd_request_processor_id = None
         self.iface.removePluginMenu('&Поиск по ПКК НСПД', self.action)
         self.iface.removeToolBarIcon(self.action)
         del self.action
@@ -38,7 +43,7 @@ class PkkSearch:
             self.buttons = GetParameters()
 
         self.buttons.show()
-        self.result = self.buttons.exec_()
+        self.result = Compat.exec_dialog(self.buttons)
         
         if self.result:
             pass
