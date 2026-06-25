@@ -5,6 +5,7 @@ about=Search to Public Cadastral Map of Rosreestr NSPD - https://nspd.gov.ru/map
       Loading layers of the NSPD
       Поиск по Публичной кадастровой карте НСПД
       Загрузка слоёв НСПД
+      
 version=2.5
 qgisMinimumVersion=3.40
 qgisMaximumVersion=4.99
