@@ -9,10 +9,37 @@ from qgis.PyQt.QtGui import QIcon
 from .compat import Compat
 from .get_user_parameters import GetParameters
 from .nspd_requests import install_nspd_request_hook, remove_nspd_request_hook
+from qgis.PyQt.QtWidgets import QMessageBox
+
+MIN_QGIS_VERSION_INT = 34000
+MIN_QGIS_VERSION_STR = '3.40'
+
+class IncompatiblePlugin:
+    
+    def __init__(self, iface):
+        self.iface = iface
+        self._shown = False
+
+    def initGui(self):
+        if not self._shown:
+            self._shown = True
+            QMessageBox.critical(
+                self.iface.mainWindow(),
+                'Несовместимая версия QGIS',
+                'Плагин rosreestr-search-qgis-plugin v 2.5 несовместим с данной версией QGIS.\n\n'
+                f'Текущая версия: {Qgis.QGIS_VERSION}\n'
+                f'Требуется версия: {MIN_QGIS_VERSION_STR} или выше.\n\n'
+                'Плагин не будет загружен.'
+            )
+            
+    def unload(self):
+        pass
 
 def classFactory(iface):
+    
+    if Qgis.QGIS_VERSION_INT < MIN_QGIS_VERSION_INT:
+        return IncompatiblePlugin(iface)
     return PkkSearch(iface)
-    self.first_start = None
 
 class PkkSearch:
 
