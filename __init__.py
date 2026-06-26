@@ -13,7 +13,7 @@ from qgis.core import Qgis
 from qgis.PyQt.QtWidgets import QMessageBox
 
 MIN_QGIS_VERSION_INT = 34000
-MIN_QGIS_VERSION_STR = '3.40'
+MIN_QGIS_VERSION_STR = '3.40.00-Bratislava'
 
 class IncompatiblePlugin:
     
