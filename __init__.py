@@ -9,6 +9,7 @@ from qgis.PyQt.QtGui import QIcon
 from .compat import Compat
 from .get_user_parameters import GetParameters
 from .nspd_requests import install_nspd_request_hook, remove_nspd_request_hook
+from qgis.core import Qgis
 from qgis.PyQt.QtWidgets import QMessageBox
 
 MIN_QGIS_VERSION_INT = 34000
